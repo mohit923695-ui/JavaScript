@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Query Selector</title>
+</head>
+<body>
+
+    <h1 id="heading">Hello mohit</h1>
+    <button id="btn">Click Me</button>
+
+    <script>
+        let heading = document.querySelector("#heading");
+        let button = document.querySelector("#btn");
+
+        button.addEventListener("click", function () {
+            heading.textContent = "Hello JavaScript!";
+        });
+    </script>
+
+</body>
+</html>
