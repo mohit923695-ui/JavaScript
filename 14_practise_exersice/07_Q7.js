@@ -9,3 +9,4 @@ let student = {
 };
 
 showStudent(student);
+console.log("Age:", student.age);
