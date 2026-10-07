@@ -1,0 +1,90 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bat Ball Game</title>
+
+  <style>
+    body {
+      background-color:blueviolet;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Bat Ball Game</h1>
+
+  <button onclick="playGame('bat')">Bat</button>
+  <button onclick="playGame('ball')">Ball</button>
+  <button onclick="playGame('stump')">Stump</button>
+
+
+  <script>
+    let userChoice = {
+      bat: '0',
+      ball: '0',
+      stump: '0',
+      
+    };
+
+    // Computer ka choice generate karne ke liye function
+    function generateComputerChoice() {
+
+      var randomNumber = Math.random() * 3;
+
+      if (randomNumber > 0 && randomNumber <= 1) {
+        return 'bat';
+      }
+      else if (randomNumber > 1 && randomNumber <= 2) {
+        return 'ball';
+      }
+      else {
+        return 'stump';
+      }
+    }
+
+
+    // Game ka result decide karne ke liye function
+    function getResult(userChoice, computerChoice) {
+
+      if (userChoice === computerChoice) {
+        return 'It is a tie';
+      }
+
+      if (
+        (userChoice === 'bat' && computerChoice === 'ball') ||
+        (userChoice === 'ball' && computerChoice === 'stump') ||
+        (userChoice === 'stump' && computerChoice === 'bat')
+      ) {
+        return 'User won';
+      }
+
+      return 'Computer won';
+    }
+
+
+
+    function playGame(userChoice) {
+
+      var computerChoice = generateComputerChoice();
+
+      var resultMsg = getResult(userChoice, computerChoice);
+
+      alert(
+        'You have chosen ' + userChoice +
+        '. Computer choice is ' + computerChoice +
+        ' and ' + resultMsg
+      );
+    }
+
+  </script>
+
+</body>
+
+</html>
+```
