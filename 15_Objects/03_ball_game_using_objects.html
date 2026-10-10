@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +9,20 @@
 
   <style>
     body {
-      background-color:blueviolet;
+      background-color: rgb(154, 139, 7);
       text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+    }
+
+    #score {
+      font-size: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -23,37 +35,36 @@
   <button onclick="playGame('ball')">Ball</button>
   <button onclick="playGame('stump')">Stump</button>
 
+  <h2>Scoreboard</h2>
+  <p id="score"></p>
+
+  <button onclick="resetScore()">Reset Score</button>
 
   <script>
-    let userChoice = {
-      bat: '0',
-      ball: '0',
-      stump: '0',
-      
+    // Object to store the score
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      win: 0,
+      loss: 0,
+      tie: 0
     };
 
-    // Computer ka choice generate karne ke liye function
+    // Generate computer choice
     function generateComputerChoice() {
+      let randomNumber = Math.random() * 3;
 
-      var randomNumber = Math.random() * 3;
-
-      if (randomNumber > 0 && randomNumber <= 1) {
+      if (randomNumber < 1) {
         return 'bat';
-      }
-      else if (randomNumber > 1 && randomNumber <= 2) {
+      } else if (randomNumber < 2) {
         return 'ball';
-      }
-      else {
+      } else {
         return 'stump';
       }
     }
 
-
-    // Game ka result decide karne ke liye function
+    // Decide the result
     function getResult(userChoice, computerChoice) {
-
       if (userChoice === computerChoice) {
-        return 'It is a tie';
+        return 'tie';
       }
 
       if (
@@ -61,30 +72,54 @@
         (userChoice === 'ball' && computerChoice === 'stump') ||
         (userChoice === 'stump' && computerChoice === 'bat')
       ) {
-        return 'User won';
+        return 'win';
       }
 
-      return 'Computer won';
+      return 'loss';
     }
 
+    // Display score
+    function showScore() {
+      document.getElementById('score').innerText =
+        `Wins: ${score.win} | Losses: ${score.loss} | Ties: ${score.tie}`;
+    }
 
-
+    // Play the game
     function playGame(userChoice) {
+      let computerChoice = generateComputerChoice();
 
-      var computerChoice = generateComputerChoice();
+      let result = getResult(userChoice, computerChoice);
 
-      var resultMsg = getResult(userChoice, computerChoice);
+      // Update score using object properties
+      score[result]++;
+
+      // Save score
+      localStorage.setItem('score', JSON.stringify(score));
+
+      showScore();
 
       alert(
-        'You have chosen ' + userChoice +
-        '. Computer choice is ' + computerChoice +
-        ' and ' + resultMsg
+        'You chose ' + userChoice +
+        '. Computer chose ' + computerChoice +
+        '. Result: ' + result
       );
     }
 
+    // Reset score
+    function resetScore() {
+      score = {
+        win: 0,
+        loss: 0,
+        tie: 0
+      };
+
+      localStorage.setItem('score', JSON.stringify(score));
+      showScore();
+    }
+
+    // Show saved score when page loads
+    showScore();
   </script>
 
 </body>
-
 </html>
-```
