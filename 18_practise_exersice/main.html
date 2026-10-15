@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>practise exercise</title>
+</head>
+<style>
+  #my-button {
+    height: 50px;
+    width: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+  }
+  .js-even {
+    background-color: yellow;);
+  }
+  .js-odd {
+    background-color: blue;
+  }
+</style>
+<body>
+  <h3 id="greeting"></h3>
+  <button id="my-button" onclick="buttonpressed();">0</button>
+  <script>
+    function buttonpressed() {
+      const button = document.getElementById('my-button');
+      let count = parseInt(button.textContent);
+      count++;
+      localStorage.setItem('count', count);
+      if (count %2 === 0) {
+        button.classList.add('js-even');
+        button.classList.add('js-odd');
+      } else {
+        button.classList.remove('js-odd');
+        button.classList.remove('js-even');
+      }
+      button.textContent = count;
+    }
+
+
+
+
+
+
+    function dogreeting(personname = 'Dear') {
+    const greetingElement = document.getElementById('greeting');
+    const currentHour = new Date().getHours();
+    let greetingMessage;
+
+    if (currentHour < 12) {
+      greetingMessage = 'Good morning!';
+    } else if (currentHour < 18) {
+      greetingMessage = 'Good afternoon!';
+    } else {
+      greetingMessage = 'Good evening!';
+    }
+
+    greetingElement.textContent = `${greetingMessage} ${personname}`;
+  }
+
+  dogreeting('mohit');
+  </script>
+</body>
+</html>
