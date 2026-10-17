@@ -6,7 +6,3 @@ console.log(arr);
 arr.unshift(4)
 console.log(arr);
 
-// task2
-function getelement (arr,position){
-  return arr(position - 1)
-  
